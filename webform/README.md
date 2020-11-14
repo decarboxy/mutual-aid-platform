@@ -20,7 +20,7 @@ To create a release of the Javscript library run the `npm build` target.
 npm run build
 ```
 
-The resulting Javascript library will be in `dist/index_bundle.js`. 
+The resulting Javascript library will be in `dist/library.js`. 
 
 ## Embedding
 
@@ -29,12 +29,12 @@ The below code demonstrates how chapter websites can incorporate the request for
 ```html
 <html>
 <head>
-    <script src=/path/to/bundle></script>
+    <script src="/path/to/library.js"></script>
 </head>
 <body>
     <script>
         installAidForm(document.body, 'chapterIdGoesHere');
-    <script>
+    </script>
 </body>
 </html>
 ```

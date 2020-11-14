@@ -2,7 +2,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: {
+        index: './src/index.ts',
+        library: './src/aid-form.ts',
+    },
     module: {
         rules: [
             {
@@ -17,7 +20,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'index_bundle.js'
+        filename: '[name].js'
     },
     plugins: [
         new HtmlWebpackPlugin()
