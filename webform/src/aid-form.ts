@@ -6,7 +6,11 @@ import { SelectInput } from './components/select-input';
 import { TextInput } from './components/text-input';
 import { FormIntro } from './components/form-intro';
 
-const buildForm = (chapterId: string) => {
+interface formOptions  {
+    submitUrl?: string
+}
+
+const buildForm = (chapterId: string, options:formOptions) => {
     return {
         view: () => {
             return m("div" + b
@@ -15,7 +19,7 @@ const buildForm = (chapterId: string) => {
                 .mr('auto')
                 , [
                     m(FormIntro),
-                    m("form", [
+                    m("form", { method: 'POST', action: options.submitUrl || '/' }, [
                         m("input", { type: "hidden", name: "chapter_id", value: chapterId }),
                         m(FieldInput, {
                             name: "full_name",
@@ -108,6 +112,6 @@ const buildForm = (chapterId: string) => {
     }
 }
 
-export default (element: HTMLElement, chapterId: string) => {
-    m.mount(element, buildForm(chapterId));
+export default (element: HTMLElement, chapterId: string, options: formOptions = {}) => {
+    m.mount(element, buildForm(chapterId, options));
 }
