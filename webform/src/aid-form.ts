@@ -24,31 +24,27 @@ const buildForm = (chapterId: string, options:formOptions) => {
                         m(FieldInput, {
                             name: "full_name",
                             label: "Full Name",
-                            type: "text",
                             required: true,
-                            attrs: {
-                                placeholder: "Enter your name",
-                            }
+                            type: "text",
+                            placeholder: "Enter your name",
                         }),
                         m(FieldInput, {
                             label: "Email Address",
                             name: "email",
-                            type: "email",
                             required: true,
-                            attrs: {
-                                placeholder: "Enter your edu email address",
-                                pattern: ".+\\.edu$",
-                            },
+                            type: "email",
+                            placeholder: "Enter your edu email address",
+                            pattern: ".+\\.edu$",
+                            invalidMsg: "Please enter a valid email address on an edu domain",
                         }),
                         m(FieldInput, {
                             name: "phone",
                             label: "Phone Number",
-                            type: "tel",
                             required: true,
-                            attrs: {
-                                placeholder: "###-###-####",
-                                pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                            }
+                            type: "tel",
+                            placeholder: "###-###-####",
+                            pattern: "\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4}",
+                            invalidMsg: "Please double check your phone number",
                         }),
                         m(FieldInput, {
                             name: "institution",
@@ -64,14 +60,12 @@ const buildForm = (chapterId: string, options:formOptions) => {
                             name: "zip",
                             label: "Zipcode",
                             type: "text",
-                            attrs: {
-                                pattern: "[0-9]{5}(-[0-9]{4})?",
-                            }
+                            pattern: "[0-9]{5}(-[0-9]{4})?",
+                            invalidMsg: "Please enter a valid 5 digit zipcode",
                         }),
                         m(FieldInput, {
                             name: "amount",
                             label: "Amount",
-                            type: "text",
                             required: true,
                             validator: (data) => {
                                 const amount = parseFloat(data);
@@ -80,9 +74,9 @@ const buildForm = (chapterId: string, options:formOptions) => {
                                 }
                                 return ""
                             },
-                            attrs: {
-                                placeholder:  "Requested aid amount",
-                            },
+                            type: "text",
+                            invalidMsg: "We cannot offer assistance exceeding $50 at this time",
+                            placeholder:  "Requested aid amount",
                         }),
                         m(SelectInput, {
                             name: "payment_method",

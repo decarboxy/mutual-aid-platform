@@ -1,40 +1,18 @@
-import b from 'bss'
 import m from 'mithril'
 
-import { BaseConfig, styleInput } from './base';
-import { ValidationError } from './validation-error';
+import { InputComponentFactory, InputAttributes, styleInput } from './base';
 
-interface InputConfig extends BaseConfig {
+interface FieldInputAttributes extends InputAttributes {
     type: string
+    placeholder?: string
+    pattern?: string
 }
 
-export const FieldInput = (): m.Component<InputConfig> => {
-    let value = "";
-    return {
-        view: ({ attrs }) => {
-            let validationError = '';
-            if(value && attrs.validator) {
-                validationError = attrs.validator(value);
-            }
-            return m("div" + b
-                .mb("1em")
-                , [
-                    attrs.label ? m("label", { for: attrs.name }, `${attrs.label}${attrs.required ? '*' : ''}`) : null,
-                    m("input" + styleInput, {
-                        value: value,
-                        oninput: (evt: InputEvent) => {
-                            value = (<HTMLInputElement>evt.target)?.value;
-                            if (attrs.validator) {
-                                (<HTMLInputElement>evt.target)?.setCustomValidity(attrs.validator(value));
-                            }
-                        },
-                        type: attrs.type,
-                        name: attrs.name,
-                        required: attrs.required === true ? true : false,
-                        ...attrs.attrs
-                    }),
-                    validationError ? m(ValidationError, validationError) : null,
-                ])
-        }
+export const FieldInput = InputComponentFactory<FieldInputAttributes>({
+    view: ({ attrs: { type, ...attrs } }) => {
+        return m("input" + styleInput, {
+            type: type,
+            ...attrs,
+        })
     }
-}
+})
